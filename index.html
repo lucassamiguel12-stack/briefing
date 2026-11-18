@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRM Automações | Apresentação</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --black: #080808;
+  --white: #ffffff;
+  --gray: #999999;
+  --card: #151515;
+  --border: #292929;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+}
+
+.presentation {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 65px 9%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(35px);
+  transition: .45s ease;
+  overflow-y: auto;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 22px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.logo {
+  font-family: 'Manrope', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: #888;
+  font-size: 10px;
+  letter-spacing: 3px;
+  display: block;
+  margin-top: -3px;
+}
+
+.top-info {
+  font-size: 10px;
+  color: var(--gray);
+  letter-spacing: 2px;
+}
+
+.eyebrow {
+  color: #999;
+  font-size: 11px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  margin-bottom: 22px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(42px, 6.5vw, 82px);
+  line-height: 1.05;
+  letter-spacing: -4px;
+  font-weight: 800;
+  max-width: 950px;
+}
+
+h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(32px, 4vw, 54px);
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+
+h3 {
+  font-size: 19px;
+  margin-bottom: 12px;
+}
+
+p {
+  color: #aaa;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.highlight {
+  color: #888;
+}
+
+.subtitle {
+  margin-top: 24px;
+  max-width: 600px;
+}
+
+.line {
+  width: 55px;
+  height: 3px;
+  background: white;
+  margin: 25px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 35px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 25px;
+  transition: .25s;
+}
+
+.card:hover {
+  border-color: #888;
+  transform: translateY(-3px);
+}
+
+.icon {
+  font-size: 27px;
+  margin-bottom: 17px;
+  filter: grayscale(1);
+}
+
+.card p {
+  font-size: 14px;
+}
+
+.three-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 28px;
+  border-radius: 12px;
+}
+
+.step-number {
+  font-size: 38px;
+  font-weight: 800;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.tag {
+  border: 1px solid #444;
+  padding: 13px 19px;
+  border-radius: 30px;
+  color: #ddd;
+  font-size: 13px;
+}
+
+.investment {
+  margin-top: 25px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.investment th {
+  color: #777;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 14px 10px;
+  border-bottom: 1px solid #444;
+}
+
+.investment td {
+  padding: 14px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.investment td:last-child {
+  text-align: right;
+  font-weight: 700;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  background: white;
+  color: black;
+  padding: 20px 25px;
+  border-radius: 10px;
+}
+
+.total strong {
+  font-size: 26px;
+}
+
+.note {
+  font-size: 11px;
+  margin-top: 13px;
+  color: #777;
+}
+
+.final-box {
+  background: white;
+  color: black;
+  padding: 30px;
+  border-radius: 14px;
+  margin-top: 30px;
+  max-width: 600px;
+}
+
+.final-box p {
+  color: #444;
+}
+
+.contact {
+  margin-top: 22px;
+  line-height: 2.3;
+  font-size: 14px;
+}
+
+.contact a {
+  color: black;
+  text-decoration: none;
+}
+
+.footer {
+  position: absolute;
+  bottom: 25px;
+  left: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #777;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.controls button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #444;
+  background: transparent;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  transition: .2s;
+}
+
+.controls button:hover {
+  background: white;
+  color: black;
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: white;
+  width: 0%;
+  z-index: 20;
+  transition: .3s;
+}
+
+@media(max-width: 700px) {
+  .slide {
+    padding: 100px 7% 90px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .three-columns {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  h1 {
+    letter-spacing: -2px;
+  }
+
+  h2 {
+    letter-spacing: -1px;
+  }
+
+  .card, .step {
+    padding: 20px;
+  }
+
+  .top-info {
+    font-size: 8px;
+  }
+
+  .footer {
+    bottom: 12px;
+  }
+
+  .investment td {
+    font-size: 11px;
+    padding: 12px 5px;
+  }
+
+  .investment th {
+    font-size: 9px;
+    padding: 10px 5px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="topbar">
+  <div class="logo">
+    SRM.
+    <span>AUTOMAÇÕES</span>
+  </div>
+  <div class="top-info">APRESENTAÇÃO INSTITUCIONAL</div>
+</div>
+
+<main class="presentation">
+
+<!-- SLIDE 1 -->
+<section class="slide active">
+  <div class="eyebrow">SRM AUTOMAÇÕES • TECNOLOGIA</div>
+  <h1>
+    Seu negócio<br>
+    mais <span class="highlight">inteligente.</span>
+  </h1>
+  <div class="line"></div>
+  <p class="subtitle">
+    Sites, cardápios digitais e automações de WhatsApp
+    para transformar a maneira como sua empresa atende e vende.
+  </p>
+  <p style="margin-top:45px;color:white;font-weight:700;">
+    Tecnologia que trabalha pelo seu negócio.
+  </p>
+  <p style="font-size:12px;margin-top:10px;">
+    Apresentado por: Lucas Samuel
+  </p>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+  <div class="eyebrow">01 • O CENÁRIO ATUAL</div>
+  <h2>O problema não é<br>falta de clientes.</h2>
+  <p>É a dificuldade de atender, organizar e converter oportunidades em vendas.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">◷</div>
+      <h3>Atendimento lento</h3>
+      <p>Clientes desistem quando demoram para receber uma resposta.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">▤</div>
+      <h3>Falta de presença digital</h3>
+      <p>Negócios sem site ou cardápio digital perdem oportunidades de venda.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">↻</div>
+      <h3>Tarefas repetitivas</h3>
+      <p>Funcionários gastam tempo respondendo sempre às mesmas perguntas.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">↘</div>
+      <h3>Vendas perdidas</h3>
+      <p>Processos desorganizados dificultam o crescimento da empresa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide">
+  <div class="eyebrow">02 • NOSSA SOLUÇÃO</div>
+  <h2>Uma estrutura digital<br>completa para seu negócio.</h2>
+  <p>Reunimos tecnologia, presença digital e automação em soluções práticas.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">⌘</div>
+      <h3>Sites profissionais</h3>
+      <p>Uma presença digital moderna para apresentar sua empresa e atrair clientes.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">▤</div>
+      <h3>Cardápios digitais</h3>
+      <p>Produtos organizados, preços atualizados e acesso simples pelo celular.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">◎</div>
+      <h3>WhatsApp automatizado</h3>
+      <p>Atendimento automático, respostas rápidas e organização das solicitações.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">⚙</div>
+      <h3>Integração inteligente</h3>
+      <p>Soluções conectadas para reduzir tarefas manuais e otimizar processos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide">
+  <div class="eyebrow">03 • NOSSO PROCESSO</div>
+  <h2>Simples para você.<br>Inteligente para o negócio.</h2>
+  <p>Da primeira conversa à entrega da solução, cuidamos de cada etapa.</p>
+
+  <div class="three-columns">
+    <div class="step">
+      <div class="step-number">01</div>
+      <h3>Entendemos</h3>
+      <p>Você apresenta seu negócio, suas necessidades e os desafios que enfrenta.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">02</div>
+      <h3>Desenvolvemos</h3>
+      <p>Criamos, configuramos e testamos as soluções adequadas para sua empresa.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">03</div>
+      <h3>Você cresce</h3>
+      <p>Sua empresa utiliza as ferramentas para atender melhor e otimizar sua operação.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide">
+  <div class="eyebrow">04 • MERCADO E OPORTUNIDADE</div>
+  <h2>Todo negócio precisa<br>evoluir digitalmente.</h2>
+  <p>Atendemos empresas que desejam melhorar sua presença digital e seus processos.</p>
+
+  <div class="tags">
+    <div class="tag">Restaurantes</div>
+    <div class="tag">Lanchonetes</div>
+    <div class="tag">Delivery</div>
+    <div class="tag">Comércios locais</div>
+    <div class="tag">Prestadores de serviços</div>
+    <div class="tag">Lojas</div>
+    <div class="tag">Empresas que vendem pelo WhatsApp</div>
+    <div class="tag">Negócios no Instagram</div>
+  </div>
+
+  <div class="line"></div>
+  <h3>Nosso público</h3>
+  <p>Pequenas e médias empresas que querem profissionalizar o atendimento, ganhar eficiência e aproveitar melhor as oportunidades digitais.</p>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide">
+  <div class="eyebrow">05 • DIFERENCIAIS E RECEITA</div>
+  <h2>Tecnologia acessível.<br>Resultados práticos.</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Investimento acessível</h3>
+      <p>Soluções planejadas de acordo com a realidade de cada negócio.</p>
+    </div>
+
+    <div class="card">
+      <h3>Entrega personalizada</h3>
+      <p>Projetos desenvolvidos conforme as necessidades do cliente.</p>
+    </div>
+
+    <div class="card">
+      <h3>Suporte simplificado</h3>
+      <p>O cliente não precisa dominar tecnologia para utilizar as soluções.</p>
+    </div>
+
+    <div class="card">
+      <h3>Receita recorrente</h3>
+      <p>Possibilidade de planos mensais para manutenção, suporte e automações.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:25px;">
+    Nosso modelo combina desenvolvimento de projetos e serviços recorrentes.
+  </p>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="slide">
+  <div class="eyebrow">06 • ESTRUTURA OPERACIONAL</div>
+  <h2>Investimento em<br>tecnologia e operação.</h2>
+  <p>Ferramentas utilizadas para desenvolver e administrar nossas soluções.</p>
+
+  <table class="investment">
+    <thead>
+      <tr>
+        <th>FERRAMENTA</th>
+        <th>FINALIDADE</th>
+        <th>VALOR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Claude</td>
+        <td>IA e apoio ao desenvolvimento</td>
+        <td>R$ 130</td>
+      </tr>
+      <tr>
+        <td>Lovable</td>
+        <td>Criação de sites e aplicações</td>
+        <td>R$ 60</td>
+      </tr>
+      <tr>
+        <td>Hostinger</td>
+        <td>Hospedagem de sites</td>
+        <td>R$ 20</td>
+      </tr>
+      <tr>
+        <td>n8n</td>
+        <td>Automação de processos</td>
+        <td>R$ 130</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="total">
+    <div>
+      <span style="font-size:12px;font-weight:700;">INVESTIMENTO TOTAL ESTIMADO</span>
+      <p style="color:#555;font-size:11px;">Valores informados para a estrutura inicial.</p>
+    </div>
+    <strong>R$ 340</strong>
+  </div>
+
+  <p class="note">
+    A periodicidade e os valores de renovação das ferramentas devem ser confirmados. O custo real pode variar conforme o uso e o plano contratado.
+  </p>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="slide">
+  <div class="eyebrow">07 • PRÓXIMOS PASSOS</div>
+  <h2>Estamos construindo<br>o próximo passo.</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>01. Conquistar clientes</h3>
+      <p>Apresentar nossas soluções e fechar os primeiros projetos.</p>
+    </div>
+
+    <div class="card">
+      <h3>02. Entregar soluções</h3>
+      <p>Desenvolver projetos eficientes e personalizados.</p>
+    </div>
+
+    <div class="card">
+      <h3>03. Construir confiança</h3>
+      <p>Reunir depoimentos, avaliações e resultados dos clientes.</p>
+    </div>
+
+    <div class="card">
+      <h3>04. Expandir</h3>
+      <p>Ampliar nossa carteira de clientes e desenvolver novas soluções.</p>
+    </div>
+  </div>
+
+  <div class="final-box">
+    <h2 style="font-size:30px;margin-bottom:10px;">SRM.</h2>
+    <p>Tecnologia que trabalha pelo seu negócio.</p>
+
+    <div class="contact">
+      <div>WhatsApp: <a href="#">[Seu número]</a></div>
+      <div>E-mail: [Seu e-mail]</div>
+      <div>Instagram: [Seu Instagram]</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="footer">
+  <div id="counter">01 / 08</div>
+
+  <div class="controls">
+    <button onclick="previousSlide()" aria-label="Slide anterior">←</button>
+    <button onclick="nextSlide()" aria-label="Próximo slide">→</button>
+  </div>
+</div>
+
+<script>
+let currentSlide = 0;
+
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+
+function showSlide(index) {
+  if (index < 0 || index >= slides.length) return;
+
+  slides.forEach(slide => slide.classList.remove('active'));
+
+  currentSlide = index;
+  slides[currentSlide].classList.add('active');
+
+  counter.textContent =
+    String(currentSlide + 1).padStart(2, '0') +
+    ' / ' +
+    String(slides.length).padStart(2, '0');
+
+  progress.style.width =
+    ((currentSlide + 1) / slides.length * 100) + '%';
+}
+
+function nextSlide() {
+  if (currentSlide < slides.length - 1) {
+    showSlide(currentSlide + 1);
+  }
+}
+
+function previousSlide() {
+  if (currentSlide > 0) {
+    showSlide(currentSlide - 1);
+  }
+}
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'ArrowRight' || event.key === ' ') {
+    nextSlide();
+  }
+
+  if (event.key === 'ArrowLeft') {
+    previousSlide();
+  }
+});
+
+let touchStart = 0;
+
+document.addEventListener('touchstart', function(event) {
+  touchStart = event.changedTouches[0].screenX;
+}, {passive: true});
+
+document.addEventListener('touchend', function(event) {
+  const touchEnd = event.changedTouches[0].screenX;
+  const difference = touchStart - touchEnd;
+
+  if (Math.abs(difference) > 70) {
+    if (difference > 0) nextSlide();
+    else previousSlide();
+  }
+}, {passive: true});
+
+showSlide(0);
+</script>
+
+</body>
+</html>
